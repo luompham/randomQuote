@@ -409,43 +409,70 @@ const randomQuote = [
     }
 ];
 
-const randomIndex = Math.floor(Math.random() * (randomQuote.length - 1));
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            randomQuote: this.props.quote[randomIndex].quote,
-            author: this.props.quote[randomIndex].author
+            quote: '',
+            author: ''
         }
         this.handleClick = this.handleClick.bind(this);
     }
 
+    componentDidMount() {
+        this.handleClick();
+
+    }
+
     handleClick() {
 
-
-        this.setState({
-            randomQuote: this.props.quote[randomIndex].quote,
-            author: this.props.quote[randomIndex].author
+        this.setState(() => {
+            const randomIndex = Math.floor(Math.random() * randomQuote.length)
+            return {
+                quote: randomQuote[randomIndex].quote,
+                author: randomQuote[randomIndex].author
+            }
         })
-
     }
 
 
 
     render() {
-        const { randomQuote, author } = this.state
+
         return (
-            <div>
-                <div id="text">{randomQuote}
+            <div className="wrapper">
+                <div className="header">
+
+                    <div className="quote-text" id="text-box">
+                        <i className="quote-icon bi bi-quote"></i>
+                        <span>{this.state.quote}</span>
+                    </div>
+
+                    <div className="quote-author" id="author">{this.state.author}
+                    </div>
+                    <div className="button">
+                        <div className="button-icons">
+                            <a id="tweet-quote">
+                                <i class="bi bi-twitter"></i>
+                            </a>
+                            <a id="post-quote">
+                                <i class="fa fa-tumblr"></i>
+                            </a>
+                        </div>
+
+                        <button type="button" className="btn btn-primary"
+                            onClick={this.handleClick} id="new-quote">New quote</button>
+                    </div>
+
                 </div>
-                <div id="author">{author},
+
+                <div className='footer'>
+
                 </div>
-                <div className='button'>
-                    <a id="tweet-quote">Tweet quote</a>
-                    <a id="post-quote">Post quote</a>
-                    <button onClick={this.handleClick} id="new-quote">New quote</button>
-                </div>
+
+
+
 
             </div>
         )
