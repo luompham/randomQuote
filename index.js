@@ -410,12 +410,17 @@ const randomQuote = [
 ];
 
 
+const primaryColor = {
+    color: 'red'
+}
+
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             quote: '',
-            author: ''
+            author: '',
+            color: ''
         }
         this.handleClick = this.handleClick.bind(this);
     }
@@ -431,7 +436,8 @@ class App extends React.Component {
             const randomIndex = Math.floor(Math.random() * randomQuote.length)
             return {
                 quote: randomQuote[randomIndex].quote,
-                author: randomQuote[randomIndex].author
+                author: randomQuote[randomIndex].author,
+                color: primaryColor.color
             }
         })
     }
@@ -441,7 +447,7 @@ class App extends React.Component {
     render() {
 
         return (
-            <div className="wrapper">
+            <div style={{ color: this.state.color }} className="wrapper">
                 <div className="header">
 
                     <div className="quote-text" id="text-box">
@@ -449,19 +455,19 @@ class App extends React.Component {
                         <span>{this.state.quote}</span>
                     </div>
 
-                    <div className="quote-author" id="author">{this.state.author}
+                    <div className="quote-author" id="author">- {this.state.author}
                     </div>
                     <div className="button">
                         <div className="button-icons">
-                            <a id="tweet-quote">
+                            <a style={{ color: this.state.color }} id="tweet-quote">
                                 <i class="bi bi-twitter"></i>
                             </a>
-                            <a id="post-quote">
+                            <a style={{ color: this.state.color }} id="post-quote">
                                 <i class="fa fa-tumblr"></i>
                             </a>
                         </div>
 
-                        <button type="button" className="btn btn-primary"
+                        <button style={{ color: this.state.color }} type="button" className="new-quote-btn btn btn-primary"
                             onClick={this.handleClick} id="new-quote">New quote</button>
                     </div>
 
